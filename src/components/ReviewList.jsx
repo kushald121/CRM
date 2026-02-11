@@ -1,12 +1,12 @@
 const ReviewList = ({ reviews, onEdit, onDelete, showActions = true }) => {
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10;
+    // Safeguard for non-array data
+    const safeReviews = Array.isArray(reviews) ? reviews : [];
 
     // Pagination
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentReviews = reviews.slice(indexOfFirstItem, indexOfLastItem);
-    const totalPages = Math.ceil(reviews.length / itemsPerPage);
+    const currentReviews = safeReviews.slice(indexOfFirstItem, indexOfLastItem);
+    const totalPages = Math.ceil(safeReviews.length / itemsPerPage);
 
     const formatDate = (dateString) => {
         if (!dateString) return 'N/A';

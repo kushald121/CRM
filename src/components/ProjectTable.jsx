@@ -6,11 +6,14 @@ const ProjectTable = ({ projects, onDelete, showActions = true }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
 
+    // Safeguard for non-array data
+    const safeProjects = Array.isArray(projects) ? projects : [];
+
     // Pagination
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentProjects = projects.slice(indexOfFirstItem, indexOfLastItem);
-    const totalPages = Math.ceil(projects.length / itemsPerPage);
+    const currentProjects = safeProjects.slice(indexOfFirstItem, indexOfLastItem);
+    const totalPages = Math.ceil(safeProjects.length / itemsPerPage);
 
     return (
         <div className="table-container">

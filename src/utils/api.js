@@ -19,15 +19,18 @@ export const fetchData = async (endpoint, options = {}) => {
 
         if (!response.ok) {
             const errorData = await response.json().catch(() => ({}));
-            throw new Error(errorData.error || `API request failed: ${response.status}`);
+            const errorMessage = errorData.error || `Error ${response.status}: ${response.statusText}`;
+            console.error(`API Error on ${endpoint}:`, errorMessage);
+            throw new Error(errorMessage);
         }
 
         return response.json();
     } catch (error) {
         clearTimeout(timeoutId);
         if (error.name === 'AbortError') {
-            throw new Error('The backend is taking a moment to wake up (Render cold start). Please wait a few more seconds and refresh.');
+            throw new Error('The backend is taking a long time to respond (Render cold start). Please wait about 30 seconds and refresh.');
         }
+        console.error('Fetch error:', error.message);
         throw error;
     }
 };
