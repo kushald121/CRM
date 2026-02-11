@@ -68,7 +68,7 @@ const ProjectTable = ({ projects, onDelete, showActions = true }) => {
                                     {project.country}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                    {project.createdAt}
+                                    {project.createdAt ? new Date(project.createdAt).toLocaleDateString() : 'N/A'}
                                 </td>
                                 {showActions && (
                                     <td className="px-6 py-4 whitespace-nowrap text-sm">

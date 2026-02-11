@@ -237,62 +237,11 @@ const UserDashboard = () => {
                             </div>
                         )}
 
-                        <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-                            {projects.length === 0 ? (
-                                <div className="text-center py-8 text-gray-500">
-                                    No projects yet. Create your first project!
-                                </div>
-                            ) : (
-                                <div className="overflow-x-auto">
-                                    <table className="w-full">
-                                        <thead className="bg-gray-50 border-b border-gray-200">
-                                            <tr>
-                                                <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase">Project ID</th>
-                                                <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase">Username</th>
-                                                <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase">Status</th>
-                                                <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase">IP Address</th>
-                                                <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase">Country</th>
-                                                <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase">Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody className="bg-white divide-y divide-gray-200">
-                                            {projects.map((project) => (
-                                                <tr key={project.id} className="table-row">
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">{project.projectId}</td>
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm">{project.username}</td>
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm">
-                                                        <span className={`px-3 py-1 rounded-full text-xs font-semibold uppercase ${project.status === 'active' || project.status === 'security' ? 'bg-green-100 text-green-700' :
-                                                            project.status === 'terminated' || project.status === 'directors' ? 'bg-red-100 text-red-700' :
-                                                                'bg-yellow-100 text-yellow-700'
-                                                            }`}>
-                                                            {project.status}
-                                                        </span>
-                                                    </td>
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm">{project.ipAddress}</td>
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm">{project.country}</td>
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm">
-                                                        <div className="flex gap-2">
-                                                            <button
-                                                                onClick={() => handleEditProject(project)}
-                                                                className="text-blue-600 hover:text-blue-800"
-                                                            >
-                                                                <Edit size={18} />
-                                                            </button>
-                                                            <button
-                                                                onClick={() => handleDeleteProject(project.id)}
-                                                                className="text-red-600 hover:text-red-800"
-                                                            >
-                                                                <X size={18} />
-                                                            </button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            )}
-                        </div>
+                        <ProjectTable
+                            projects={projects}
+                            onDelete={handleDeleteProject}
+                            showActions={true}
+                        />
                     </div>
 
                     {/* Reviews Section */}
