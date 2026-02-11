@@ -2,7 +2,7 @@ const API_URL = 'https://crm-backend-1-kvok.onrender.com/api';
 
 export const fetchData = async (endpoint, options = {}) => {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+    const timeoutId = setTimeout(() => controller.abort(), 60000); // Increased to 60 seconds for cold starts
 
     try {
         const response = await fetch(`${API_URL}${endpoint}`, {
@@ -26,7 +26,7 @@ export const fetchData = async (endpoint, options = {}) => {
     } catch (error) {
         clearTimeout(timeoutId);
         if (error.name === 'AbortError') {
-            throw new Error('Request timed out. The backend might be starting up (cold start). Please refresh in a moment.');
+            throw new Error('The backend is taking a moment to wake up (Render cold start). Please wait a few more seconds and refresh.');
         }
         throw error;
     }
