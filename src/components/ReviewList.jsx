@@ -1,4 +1,10 @@
+import { useState } from 'react';
+import { Star, Edit, Trash2 } from 'lucide-react';
+
 const ReviewList = ({ reviews, onEdit, onDelete, showActions = true }) => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
+
     // Safeguard for non-array data
     const safeReviews = Array.isArray(reviews) ? reviews : [];
 
