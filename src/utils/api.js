@@ -1,4 +1,4 @@
-const API_URL = '/api';
+const API_URL = 'https://crm-backend-3e43.onrender.com/api';
 
 export const fetchData = async (endpoint, options = {}) => {
     const response = await fetch(`${API_URL}${endpoint}`, {
