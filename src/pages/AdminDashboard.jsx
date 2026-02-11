@@ -6,7 +6,7 @@ import Navbar from '../components/Navbar';
 import FilterBar from '../components/FilterBar';
 import ProjectTable from '../components/ProjectTable';
 import ReviewList from '../components/ReviewList';
-import { getProjects, getReviews, deleteProject, deleteReview, exportToCSV } from '../utils/dataManager';
+import { getProjects, getReviews, getUsers, deleteProject, deleteReview, exportToCSV } from '../utils/dataManager';
 
 
 const AdminDashboard = () => {
@@ -28,15 +28,17 @@ const AdminDashboard = () => {
 
     const loadData = async () => {
         try {
-            const projectsData = await getProjects();
-            const reviewsData = await getReviews();
-            const usersData = await getUsers();
-            setProjects(projectsData);
-            setFilteredProjects(projectsData);
-            setReviews(reviewsData);
-            setUsers(usersData);
+            const projectsData = await getProjects() || [];
+            const reviewsData = await getReviews() || [];
+            const usersData = await getUsers() || [];
+
+            setProjects(Array.isArray(projectsData) ? projectsData : []);
+            setFilteredProjects(Array.isArray(projectsData) ? projectsData : []);
+            setReviews(Array.isArray(reviewsData) ? reviewsData : []);
+            setUsers(Array.isArray(usersData) ? usersData : []);
         } catch (err) {
-            toast.error('Failed to load data');
+            console.error('Admin load error:', err);
+            toast.error('Failed to load dashboard data');
         }
     };
 
